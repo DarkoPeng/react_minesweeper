@@ -19,5 +19,5 @@
   box-sizing: border-box;
 }
 .mine-cell.clicked{
-  border: 2px solid #bebebe;
+  border: 1px solid #8b8b8b;
 }

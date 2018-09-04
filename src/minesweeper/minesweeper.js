@@ -50,7 +50,7 @@ class MineSweeper extends Component {
     ];
     return nearCellSet.filter(item => {
       let [x, y] = item;
-      return x >=0 && x <= this.state.rowCount && y >= 0 && y <= this.state.columnCount;
+      return x > -1 && x < this.state.rowCount && y > -1 && y < this.state.columnCount;
     })    
   }
 
@@ -72,19 +72,23 @@ class MineSweeper extends Component {
     const {mineMap} = this.state;
     const nearCell = this.nearCell(row, column);
 
+    // 已点开
+    if(mineMap[row][column]['isClick']) {
+      return;
+    }
+
     // 踩到地雷
     if(mineMap[row][column]['isMine']){
       console.error('loser');
       return;
     }
+
     // 点击方块周围有地雷
-    // todo
-    // 这里有bug
     for(let i = 0; i < nearCell.length; i++){
       let [x, y] = nearCell[i];
       if(mineMap[x][y]['isMine']){
         mineMap[row][column]['count']++;
-      }
+      }  
     }
     // 点击区域置灰
     mineMap[row][column].isClick = true;
