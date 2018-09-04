@@ -1,2 +1,3 @@
-# react_minesweeper
-react 扫雷游戏
+# minesweeper
+
+A Minesweeper By React

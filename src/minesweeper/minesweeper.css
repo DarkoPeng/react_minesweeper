@@ -1,0 +1,23 @@
+.mine-map{
+  background: #c0c0c0;
+  border: 6px outset #8b8b8b;
+  display: inline-block;
+}
+.mine-row{
+  display: flex;
+}
+.mine-cell{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: #c0c0c0;
+  color: red;
+  border: 3px outset #fff;
+  text-align: center;
+  cursor: default;
+  user-select: none;
+  box-sizing: border-box;
+}
+.mine-cell.clicked{
+  border: 2px solid #bebebe;
+}
