@@ -67,6 +67,16 @@ class MineSweeper extends Component {
     }
   }
 
+  // 右键点击事件处理
+  onContextMenuHandler(row, column, e){
+    e.preventDefault();
+    const {mineMap} = this.state;
+    mineMap[row][column].isFlag = true;
+    this.setState({
+      mineMap: mineMap
+    })    
+  }
+
   // 点击事件处理
   clickCell(row, column){
     const {mineMap} = this.state;
@@ -76,6 +86,9 @@ class MineSweeper extends Component {
     if(mineMap[row][column]['isClick']) {
       return;
     }
+
+    // 点击区域置灰
+    mineMap[row][column].isClick = true;
 
     // 踩到地雷
     if(mineMap[row][column]['isMine']){
@@ -90,8 +103,6 @@ class MineSweeper extends Component {
         mineMap[row][column]['count']++;
       }  
     }
-    // 点击区域置灰
-    mineMap[row][column].isClick = true;
 
     // 点击方块周围没有地雷，递归调用
     if(Number(mineMap[row][column]['count']) === 0){
@@ -116,8 +127,12 @@ class MineSweeper extends Component {
         {this.state.mineMap.map((row, rowIndex) => 
           <div className="mine-row" key={rowIndex}>
             {row.map((column, columnIndex) => 
-              <span className={`mine-cell ${column.isClick ? 'clicked' : ''}`} key={columnIndex} onClick={() => this.clickCell(rowIndex, columnIndex)}>
-                {column.isClick && column.count ? column.count : ''}
+              <span className={`mine-cell ${column.isClick ? 'clicked' : ''}`} key={columnIndex} 
+                    onClick={(e) => this.clickCell(rowIndex, columnIndex, e)}
+                    onContextMenu={(e) => this.onContextMenuHandler(rowIndex, columnIndex, e)}>
+                { column.isClick && column.count ? 
+                  column.count : (column.isFlag ?
+                  'F' : (column.isClick && column.isMine ? 'X' : ''))}
               </span>
             )}
           </div>
